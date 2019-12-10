@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chore Door!</title>
-    <link href="./style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="style.css" />
     <link
-      href="https://fonts.googleapis.com/css?family=Work+Sans"
+      href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap"
       rel="stylesheet"
-      type="text/css"
     />
   </head>
 
@@ -72,6 +74,17 @@
       />
     </div>
     <div id="start" class="start-row">Good luck!</div>
+    <table class="score-row">
+      <tr>
+        <th class="score-text">Current streak:</th>
+        <th class="score-text">Best streak:</th>
+      </tr>
+      <tr>
+        <th class="score-box" id="score-number"></th>
+        <th class="score-box" id="high-score-number"></th>
+      </tr>
+    </table>
+
     <script src="script.js"></script>
   </body>
 </html>

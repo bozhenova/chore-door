@@ -5,6 +5,8 @@
   let doorImage2 = document.getElementById("door2");
   let doorImage3 = document.getElementById("door3");
   let startButton = document.getElementById("start");
+  let currentStreak = document.getElementById("score-number");
+  let bestStreak = document.getElementById("high-score-number");
 
   let botDoorPath =
     "https://s3.amazonaws.com/codecademy-content/projects/chore-door/images/robot.svg";
@@ -20,6 +22,10 @@
   let openDoor2;
   let openDoor3;
   let currentlyPlaying = true;
+  let score = 0;
+  let highScore = 0;
+  currentStreak.innerHTML = score;
+  bestStreak.innerHTML = highScore;
 
   const isBot = door => {
     if (door.src === botDoorPath) {
@@ -42,25 +48,43 @@
     if (numClosedDoors === 0) {
       gameOver("win");
     } else if (isBot(door)) {
-      gameOver();
+      gameOver("lose");
     }
   };
 
   const randomChoreDoorGenerator = () => {
-    const choreDoor = Math.floor(Math.random() * numClosedDoors);
-    if (choreDoor === 0) {
-      openDoor1 = botDoorPath;
-      openDoor2 = beachDoorPath;
-      openDoor3 = spaceDoorPath;
-    } else if (choreDoor === 1) {
-      openDoor2 = botDoorPath;
-      openDoor3 = beachDoorPath;
-      openDoor1 = spaceDoorPath;
-    } else {
-      choreDoor === 2;
-      openDoor3 = botDoorPath;
-      openDoor1 = beachDoorPath;
-      openDoor2 = spaceDoorPath;
+    let choreDoor = Math.floor(Math.random() * 6); //6 possible combinations
+    switch (choreDoor) {
+      case 0:
+        openDoor1 = botDoorPath;
+        openDoor2 = beachDoorPath;
+        openDoor3 = spaceDoorPath;
+        break;
+      case 1:
+        openDoor1 = botDoorPath;
+        openDoor2 = spaceDoorPath;
+        openDoor3 = beachDoorPath;
+        break;
+      case 2:
+        openDoor2 = botDoorPath;
+        openDoor1 = beachDoorPath;
+        openDoor3 = spaceDoorPath;
+        break;
+      case 3:
+        openDoor2 = botDoorPath;
+        openDoor1 = spaceDoorPath;
+        openDoor3 = beachDoorPath;
+        break;
+      case 4:
+        openDoor3 = botDoorPath;
+        openDoor1 = beachDoorPath;
+        openDoor2 = spaceDoorPath;
+        break;
+      case 5:
+        openDoor3 = botDoorPath;
+        openDoor1 = spaceDoorPath;
+        openDoor2 = beachDoorPath;
+        break;
     }
   };
 
@@ -101,14 +125,26 @@
     }
   };
 
-  function gameOver(status) {
-    if (status === "win") {
+  const gameOver = string => {
+    if (string === "win") {
       startButton.innerHTML = "You win! Play again?";
+      getYourScore();
     } else {
       startButton.innerHTML = "Game over! Play again?";
+      score = 0;
+      currentStreak.innerHTML = score;
     }
     currentlyPlaying = false;
-  }
+  };
+
+  const getYourScore = () => {
+    score++;
+    currentStreak.innerHTML = score;
+    if (score > highScore) {
+      highScore = score;
+      bestStreak.innerHTML = highScore;
+    }
+  };
 
   startRound();
 })();
